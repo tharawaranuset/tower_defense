@@ -1,0 +1,43 @@
+package model.entity.enemy;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import main.Main;
+import model.TilePoint;
+
+import java.util.List;
+
+public class FastEnemy extends Enemy {
+
+    public FastEnemy(List<TilePoint> path) {
+        super(
+                path.getFirst().getCol(),
+                path.getFirst().getRow(),
+                50,
+                5.0,
+                15,
+                path
+        );
+    }
+
+    @Override
+    protected Color getBodyColor() {
+        return Color.YELLOW;
+    }
+
+    // less than others
+    @Override
+    public void render(GraphicsContext gc) {
+        double r = Main.TILE_SIZE / 2.0 - 8;
+        gc.setFill(getBodyColor());
+        gc.fillOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
+
+        if (isSlowed()) {
+            gc.setStroke(Color.CYAN);
+            gc.setLineWidth(2);
+            gc.strokeOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
+        }
+
+        drawHpBar(gc, r);
+    }
+}
