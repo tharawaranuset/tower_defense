@@ -68,9 +68,7 @@ public abstract class Tower extends Entity implements Attackable {
     }
 
     @Override
-    public abstract void attack(Enemy target);
-
-    public abstract Projectile createProjectile(Enemy target);
+    public abstract Projectile attack(Enemy target);
 
     // ----------------------------------------------------------------
     // Getter and Setter

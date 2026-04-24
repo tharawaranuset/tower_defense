@@ -1,9 +1,10 @@
 package model.interfaces;
 
+import model.Projectile;
 import model.entity.enemy.Enemy;
 
 public interface Attackable {
-    void attack(Enemy e);
+    Projectile attack(Enemy e);
 
     int getRange();
 
