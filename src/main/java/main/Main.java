@@ -22,6 +22,7 @@ import model.entity.tower.Tower;
 import thread.GameLoopThread;
 import thread.SpawnThread;
 import util.GameConfig;
+import util.SoundManager;
 
 import java.util.List;
 
@@ -246,11 +247,14 @@ public class Main extends Application {
         spawnThread = new SpawnThread(controller.getWaveController());
         spawnThread.setDaemon(true);
         spawnThread.start();
+
+        SoundManager.getInstance().playBgm();
     }
 
     private void shutdown() {
         if (loopThread != null) loopThread.stopLoop();
         if (spawnThread != null) spawnThread.stopSpawn();
+        SoundManager.getInstance().stopBgm();
     }
 
     public void showMessage(String msg) {

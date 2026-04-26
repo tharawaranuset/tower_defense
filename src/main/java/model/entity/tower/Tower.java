@@ -7,6 +7,7 @@ import model.entity.Entity;
 import model.entity.enemy.Enemy;
 import model.interfaces.Attackable;
 import util.GameConfig;
+import util.SoundManager;
 
 public abstract class Tower extends Entity implements Attackable {
 
@@ -34,6 +35,7 @@ public abstract class Tower extends Entity implements Attackable {
 
     protected void resetCooldown() {
         lastFiredAt = System.currentTimeMillis();
+        SoundManager.getInstance().play(this);
     }
 
     @Override
