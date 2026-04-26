@@ -103,7 +103,20 @@ public class Main extends Application {
         RadioButton btnIce = buildTowerBtn("Ice\n(70g)", "ice");
         btnArrow.setSelected(true);
 
-        // Next wave button
+        // combine to a panel
+        Label shopTitle = new Label("Towers");
+        shopTitle.setTextFill(Color.WHITE);
+        shopTitle.setFont(Font.font("System", FontWeight.BOLD, 12));
+
+        VBox shop = new VBox(10, shopTitle, btnArrow, btnCannon, btnIce,
+                new Separator(), buildNextWaveBtn());
+        shop.setPadding(new Insets(10));
+        shop.setPrefWidth(110);
+        shop.setStyle("-fx-background-color: #3c3c3c;");
+        return shop;
+    }
+
+    private Button buildNextWaveBtn() {
         btnNextWave = new Button("Next Wave");
         btnNextWave.setMaxWidth(Double.MAX_VALUE);
         btnNextWave.setOnAction(e -> {
@@ -112,18 +125,7 @@ public class Main extends Application {
             showMessage("Wave " + wave + " started!");
             btnNextWave.setDisable(true);
         });
-
-        // combine to a panel
-        Label shopTitle = new Label("Towers");
-        shopTitle.setTextFill(Color.WHITE);
-        shopTitle.setFont(Font.font("System", FontWeight.BOLD, 12));
-
-        VBox shop = new VBox(10, shopTitle, btnArrow, btnCannon, btnIce,
-                new Separator(), btnNextWave);
-        shop.setPadding(new Insets(10));
-        shop.setPrefWidth(110);
-        shop.setStyle("-fx-background-color: #3c3c3c;");
-        return shop;
+        return btnNextWave;
     }
 
     private RadioButton buildTowerBtn(String label, String type) {
