@@ -86,7 +86,6 @@ public class SoundManager {
         if (obj == null) return;
         String key = obj.getClass().getSimpleName();
 
-        if (muted) return;
         if (clips.containsKey(key)) {
             clips.get(key).play();
         } else if (tracks.containsKey(key)) {
@@ -97,7 +96,7 @@ public class SoundManager {
 
     // play background sound, loop
     public void playBgm() {
-        if (muted || !tracks.containsKey("bgm")) return;
+        if (!tracks.containsKey("bgm")) return;
         tracks.get("bgm").play();
     }
 
@@ -115,6 +114,16 @@ public class SoundManager {
 
     public void setMuted(boolean muted) {
         this.muted = muted;
-        if (muted) stopBgm();
+
+        double volume = muted ? 0.0 : 1.0;
+
+        for (MediaPlayer player : tracks.values()) {
+            player.setVolume(volume);
+        }
+
+        for (AudioClip clip : clips.values()) {
+            clip.setVolume(volume);
+        }
+
     }
 }

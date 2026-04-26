@@ -41,6 +41,7 @@ public class Main extends Application {
     private SpawnThread spawnThread;
 
     private Button btnNextWave;
+    private Button btnMute;
 
     public static void main(String[] args) {
         launch(args);
@@ -109,8 +110,15 @@ public class Main extends Application {
         shopTitle.setTextFill(Color.WHITE);
         shopTitle.setFont(Font.font("System", FontWeight.BOLD, 12));
 
-        VBox shop = new VBox(10, shopTitle, btnArrow, btnCannon, btnIce,
-                new Separator(), buildNextWaveBtn());
+        VBox shop = new VBox(
+                10,
+                shopTitle,
+                btnArrow,
+                btnCannon,
+                btnIce,
+                new Separator(), buildNextWaveBtn(),
+                new Separator(), buildMuteBtn()
+        );
         shop.setPadding(new Insets(10));
         shop.setPrefWidth(110);
         shop.setStyle("-fx-background-color: #3c3c3c;");
@@ -127,6 +135,17 @@ public class Main extends Application {
             btnNextWave.setDisable(true);
         });
         return btnNextWave;
+    }
+
+    private Button buildMuteBtn() {
+        btnMute = new javafx.scene.control.Button("Mute");
+        btnMute.setMaxWidth(Double.MAX_VALUE);
+        btnMute.setOnAction(e -> {
+            SoundManager sm = SoundManager.getInstance();
+            sm.setMuted(!sm.isMuted());
+            btnMute.setText(sm.isMuted() ? "Unmute" : "Mute");
+        });
+        return btnMute;
     }
 
     private RadioButton buildTowerBtn(String label, String type) {
