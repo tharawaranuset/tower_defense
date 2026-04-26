@@ -43,6 +43,8 @@ public class Main extends Application {
     private Button btnNextWave;
     private Button btnMute;
 
+    private boolean gameOverSoundPlayed = false;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -227,6 +229,12 @@ public class Main extends Application {
     }
 
     private void drawGameOver() {
+        if (!gameOverSoundPlayed) {
+            SoundManager.getInstance().stopBgm();
+            SoundManager.getInstance().play("game_over");
+            gameOverSoundPlayed = true;
+        }
+
         gc.setFill(Color.color(0, 0, 0, 0.6));
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setFill(Color.RED);

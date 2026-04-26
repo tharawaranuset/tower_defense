@@ -18,8 +18,9 @@ public class SoundManager {
 
     private SoundManager() {
         loadAllClips("/sounds/tower");
+        loadClip("game_over", "/sounds/game_over.mp3");
 
-        loadTrack("bgm", "/sounds/background.mp3");
+        loadTrack("bgm", "/sounds/bgm.mp3");
     }
 
     private void loadAllClips(String folderPath) {
@@ -84,7 +85,13 @@ public class SoundManager {
     // play sound effect
     public void play(Object obj) {
         if (obj == null) return;
-        String key = obj.getClass().getSimpleName();
+
+        String key;
+        if (obj instanceof String) {
+            key = (String) obj;
+        } else {
+            key = obj.getClass().getSimpleName();
+        }
 
         if (clips.containsKey(key)) {
             clips.get(key).play();
