@@ -29,7 +29,7 @@ public class WaveController {
     }
 
     public void nextWave() {
-        if (waveInProgress) return;   // can't re-pressed when running
+        if (isWaveInProgress()) return;   // can't re-pressed when running
         currentWave++;
         buildQueue(currentWave);
         waveInProgress = true;

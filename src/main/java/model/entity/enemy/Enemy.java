@@ -47,7 +47,7 @@ public abstract class Enemy extends Entity implements Damageable {
     }
 
     public void move(double deltaTime) {
-        if (isDead() || pathIdx >= getPath().size()) return;
+        if (isDead() || pathIdx >= path.size()) return;
 
         // check if slow expired
         if (System.currentTimeMillis() > slowUntil) {
@@ -147,10 +147,6 @@ public abstract class Enemy extends Entity implements Damageable {
 
     public double getSpeed() {
         return speed;
-    }
-
-    public boolean isReachedEnd() {
-        return reachedEnd;
     }
 
     public List<TilePoint> getPath() {
