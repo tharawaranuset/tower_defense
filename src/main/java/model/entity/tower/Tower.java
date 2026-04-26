@@ -2,11 +2,11 @@ package model.entity.tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import main.Main;
 import model.Projectile;
 import model.entity.Entity;
 import model.entity.enemy.Enemy;
 import model.interfaces.Attackable;
+import util.GameConfig;
 
 public abstract class Tower extends Entity implements Attackable {
     protected int range;
@@ -35,9 +35,9 @@ public abstract class Tower extends Entity implements Attackable {
 
     @Override
     public void render(GraphicsContext gc) {
-        double x = tileX * Main.TILE_SIZE;
-        double y = tileY * Main.TILE_SIZE;
-        double s = Main.TILE_SIZE;
+        double x = tileX * GameConfig.TILE_SIZE;
+        double y = tileY * GameConfig.TILE_SIZE;
+        double s = GameConfig.TILE_SIZE;
 
         // base platform
         gc.setFill(Color.DARKGRAY);
@@ -57,9 +57,9 @@ public abstract class Tower extends Entity implements Attackable {
 
     // draw tower's range circle
     public void renderRange(GraphicsContext gc) {
-        double cx = (tileX * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
-        double cy = (tileY * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
-        double r = range * Main.TILE_SIZE;
+        double cx = (tileX * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+        double cy = (tileY * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+        double r = range * GameConfig.TILE_SIZE;
         gc.setFill(Color.color(1, 1, 0, 0.06));
         gc.fillOval(cx - r, cy - r, r * 2, r * 2);
         gc.setStroke(Color.color(1, 1, 0, 0.3));

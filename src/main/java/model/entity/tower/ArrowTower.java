@@ -2,9 +2,9 @@ package model.entity.tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import main.Main;
 import model.Projectile;
 import model.entity.enemy.Enemy;
+import util.GameConfig;
 
 public class ArrowTower extends Tower {
 
@@ -24,8 +24,8 @@ public class ArrowTower extends Tower {
     public Projectile attack(Enemy target) {
         if (isNotReady()) return null;
         resetCooldown();
-        double cx = (getTileX() * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
-        double cy = (getTileY() * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
+        double cx = (getTileX() * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+        double cy = (getTileY() * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
         return new Projectile(
                 cx,
                 cy,
@@ -40,9 +40,9 @@ public class ArrowTower extends Tower {
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
-        double x = getTileX() * Main.TILE_SIZE;
-        double y = getTileY() * Main.TILE_SIZE;
-        double s = Main.TILE_SIZE;
+        double x = getTileX() * GameConfig.TILE_SIZE;
+        double y = getTileY() * GameConfig.TILE_SIZE;
+        double s = GameConfig.TILE_SIZE;
 
         // upside arrow
         gc.setFill(Color.PERU);

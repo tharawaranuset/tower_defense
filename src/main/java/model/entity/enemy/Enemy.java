@@ -2,10 +2,10 @@ package model.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import main.Main;
 import model.TilePoint;
 import model.entity.Entity;
 import model.interfaces.Damageable;
+import util.GameConfig;
 
 import java.util.List;
 
@@ -33,8 +33,8 @@ public abstract class Enemy extends Entity implements Damageable {
         this.reward = reward;
         this.path = path;
         // start at middle pixel of start tile
-        this.pixelX = (startCol * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
-        this.pixelY = (startRow * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
+        this.pixelX = (startCol * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+        this.pixelY = (startRow * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
     }
 
     @Override
@@ -55,10 +55,10 @@ public abstract class Enemy extends Entity implements Damageable {
         }
 
         TilePoint target = path.get(pathIdx);
-        double targetX = (target.getCol() * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
-        double targetY = (target.getRow() * Main.TILE_SIZE) + (Main.TILE_SIZE / 2.0);
+        double targetX = (target.getCol() * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+        double targetY = (target.getRow() * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
 
-        double effectiveSpeed = speed * slowMultiplier * Main.TILE_SIZE * deltaTime;
+        double effectiveSpeed = speed * slowMultiplier * GameConfig.TILE_SIZE * deltaTime;
 
         double dx = targetX - pixelX;
         double dy = targetY - pixelY;
@@ -92,7 +92,7 @@ public abstract class Enemy extends Entity implements Damageable {
 
     @Override
     public void render(GraphicsContext gc) {
-        double r = Main.TILE_SIZE / 2.0 - 4;
+        double r = GameConfig.TILE_SIZE / 2.0 - 4;
 
         // enemy body
         gc.setFill(getBodyColor());

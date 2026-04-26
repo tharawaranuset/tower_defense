@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import main.Main;
-import static main.Main.TILE_SIZE;
+import util.GameConfig;
+
+import static util.GameConfig.TILE_SIZE;
 
 public class GameMap implements Renderable {
 
@@ -32,7 +33,7 @@ public class GameMap implements Renderable {
     private List<TilePoint> path;
 
     public GameMap() {
-        grid = new int[Main.ROWS][Main.COLS];
+        grid = new int[GameConfig.ROWS][GameConfig.COLS];
         towers = Collections.synchronizedList(new ArrayList<>());
         enemies = Collections.synchronizedList(new ArrayList<>());
         buildMap();
@@ -62,8 +63,8 @@ public class GameMap implements Renderable {
     }
 
     public boolean canPlace(int col, int row) {
-        if (col < 0 || col >= Main.COLS) return false;
-        if (row < 0 || row >= Main.ROWS) return false;
+        if (col < 0 || col >= GameConfig.COLS) return false;
+        if (row < 0 || row >= GameConfig.ROWS) return false;
         return grid[row][col] == GRASS;
     }
 
@@ -101,8 +102,8 @@ public class GameMap implements Renderable {
 
     @Override
     public void render(GraphicsContext gc) {
-        for (int r = 0; r < Main.ROWS; r++) {
-            for (int c = 0; c < Main.COLS; c++) {
+        for (int r = 0; r < GameConfig.ROWS; r++) {
+            for (int c = 0; c < GameConfig.COLS; c++) {
                 switch (grid[r][c]) {
                     case PATH -> gc.setFill(Color.web("#8B7355")); // enemy tile
                     case TOWER -> gc.setFill(Color.web("#555555")); // tower tile

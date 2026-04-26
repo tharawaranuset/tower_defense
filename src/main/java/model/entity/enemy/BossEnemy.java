@@ -2,8 +2,8 @@ package model.entity.enemy;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import main.Main;
 import model.TilePoint;
+import util.GameConfig;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class BossEnemy extends Enemy {
     // bigger than others
     @Override
     public void render(GraphicsContext gc) {
-        double r = Main.TILE_SIZE / 2.0;
+        double r = GameConfig.TILE_SIZE / 2.0;
         gc.setFill(getBodyColor());
         gc.fillOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
 

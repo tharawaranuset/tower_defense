@@ -16,20 +16,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import model.GameMap;
 import model.Projectile;
 import model.entity.enemy.Enemy;
 import model.entity.tower.Tower;
 import thread.GameLoopThread;
 import thread.SpawnThread;
+import util.GameConfig;
 
 import java.util.List;
 
 public class Main extends Application {
-
-    public static final int TILE_SIZE = 48;
-    public static final int COLS = 16;
-    public static final int ROWS = 10;
 
     private Canvas canvas;
     private GraphicsContext gc;
@@ -92,7 +88,7 @@ public class Main extends Application {
     }
 
     private Canvas buildCanvas() {
-        canvas = new Canvas(COLS * TILE_SIZE, ROWS * TILE_SIZE);
+        canvas = new Canvas(GameConfig.COLS * GameConfig.TILE_SIZE, GameConfig.ROWS * GameConfig.TILE_SIZE);
         gc = canvas.getGraphicsContext2D();
         canvas.setOnMouseClicked(this::handleMapClick);
         return canvas;
@@ -213,7 +209,7 @@ public class Main extends Application {
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.setFill(Color.RED);
         gc.setFont(Font.font(48));
-        gc.fillText("GAME OVER", COLS * TILE_SIZE / 2.0 - 140, ROWS * TILE_SIZE / 2.0);
+        gc.fillText("GAME OVER", GameConfig.COLS * GameConfig.TILE_SIZE / 2.0 - 140, GameConfig.ROWS * GameConfig.TILE_SIZE / 2.0);
     }
 
     // ----------------------------------------------------------------
@@ -226,8 +222,8 @@ public class Main extends Application {
         Toggle selected = towerToggle.getSelectedToggle();
         if (selected == null) return;
 
-        int col = (int) (e.getX() / TILE_SIZE);
-        int row = (int) (e.getY() / TILE_SIZE);
+        int col = (int) (e.getX() / GameConfig.TILE_SIZE);
+        int row = (int) (e.getY() / GameConfig.TILE_SIZE);
         String type = (String) selected.getUserData();
 
         boolean ok = controller.buyTower(type, col, row);
