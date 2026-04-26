@@ -9,6 +9,9 @@ import model.interfaces.Attackable;
 import util.GameConfig;
 
 public abstract class Tower extends Entity implements Attackable {
+
+    private static final int PADDING = 4;
+
     protected int range;
     protected int damage;
     protected int cost;
@@ -41,17 +44,16 @@ public abstract class Tower extends Entity implements Attackable {
 
         // base platform
         gc.setFill(Color.DARKGRAY);
-        gc.fillRect(x + 4, y + 4, s - 8, s - 8);
+        gc.fillRect(x + PADDING, y + PADDING, s - PADDING * 2, s - PADDING * 2);
 
         // hp bar
-        double barW = s - 8;
+        double barW   = s - PADDING * 2;
         double filled = barW * ((double) hp / maxHp);
         gc.setFill(Color.DARKRED);
-        gc.fillRect(x + 4, y + s - 8, barW, 4);
+        gc.fillRect(x + PADDING, y + s - PADDING * 2, barW, PADDING);
         gc.setFill(Color.LIMEGREEN);
-        gc.fillRect(x + 4, y + s - 8, filled, 4);
+        gc.fillRect(x + PADDING, y + s - PADDING * 2, filled, PADDING);
 
-        // tower range
         renderRange(gc);
     }
 

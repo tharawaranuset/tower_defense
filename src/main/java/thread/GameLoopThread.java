@@ -5,6 +5,8 @@ import main.Main;
 
 public class GameLoopThread extends Thread {
 
+    private static final long TARGET_FPS_MS = 16;
+
     private final GameController controller;
     private final Main screen;
     private boolean running = true;
@@ -24,7 +26,7 @@ public class GameLoopThread extends Thread {
 
             long elapsed = System.currentTimeMillis() - start;
             // 16 ms approximately to 60 FPS
-            long sleep = 16 - elapsed;
+            long sleep = TARGET_FPS_MS - elapsed;
 
             if (sleep > 0) {
                 try {

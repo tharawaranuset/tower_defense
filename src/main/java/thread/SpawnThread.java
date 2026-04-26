@@ -3,6 +3,7 @@ package thread;
 import controller.WaveController;
 
 public class SpawnThread extends Thread {
+    private static final long DEFAULT_INTERVAL_MS = 2000;
 
     private final WaveController waveController;
     private boolean running = true;
@@ -10,7 +11,7 @@ public class SpawnThread extends Thread {
 
     public SpawnThread(WaveController waveController) {
         this.waveController = waveController;
-        this.intervalMs = 2000;
+        this.intervalMs = DEFAULT_INTERVAL_MS;
     }
 
     public void setIntervalMs(long intervalMs) {

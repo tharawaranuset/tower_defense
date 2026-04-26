@@ -11,6 +11,13 @@ import java.util.Queue;
 
 public class WaveController {
 
+    private static final int BASE_BASIC_COUNT = 5;
+    private static final int BASIC_PER_WAVE = 2;
+    private static final int FAST_START_WAVE = 2;
+    private static final int FAST_RATIO = 2;
+    private static final int BOSS_START_WAVE = 3;
+    private static final int BOSS_RATIO = 3;
+
     private int currentWave = 0;
     private final Queue<Enemy> spawnQueue;
     private final GameMap map;
@@ -32,9 +39,9 @@ public class WaveController {
     private void buildQueue(int wave) {
         spawnQueue.clear();
 
-        int basicCount = 5 + wave * 2;
-        int fastCount = wave >= 2 ? wave * 2 : 0;
-        int bossCount = wave >= 3 ? wave / 3 : 0;
+        int basicCount = BASE_BASIC_COUNT + wave * BASIC_PER_WAVE;
+        int fastCount = wave >= FAST_START_WAVE ? wave * FAST_RATIO : 0;
+        int bossCount = wave >= BOSS_START_WAVE ? wave / BOSS_RATIO : 0;
 
         for (int i = 0; i < basicCount; i++) {
             spawnQueue.add(new BasicEnemy(map.getPath()));
