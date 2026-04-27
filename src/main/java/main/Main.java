@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -65,6 +66,10 @@ public class Main extends Application {
         root.setBottom(buildMessageBar());
 
         stage.setTitle("Tower Defense");
+        var stream = getClass().getResourceAsStream("/images/icon.png");
+        if (stream != null) {
+            stage.getIcons().add(new Image(stream));
+        }
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.setOnCloseRequest(e -> shutdown());
