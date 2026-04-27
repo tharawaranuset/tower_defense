@@ -26,6 +26,11 @@ import util.SoundManager;
 
 import java.util.List;
 
+/**
+ * Main.java
+ * entry point ของโปรแกรม จัดการ UI ทั้งหมด เช่น HUD, shop, canvas
+ * และเริ่ม GameLoopThread กับ SpawnThread
+ */
 public class Main extends Application {
 
     private Canvas canvas;

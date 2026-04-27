@@ -9,6 +9,10 @@ import util.GameConfig;
 
 import java.util.List;
 
+/**
+ * CannonTower.java
+ * tower ที่ยิง splash damage โจมตี enemy หลายตัวพร้อมกัน ราคาสูงสุด
+ */
 public class CannonTower extends Tower {
 
     private int splashRadius;

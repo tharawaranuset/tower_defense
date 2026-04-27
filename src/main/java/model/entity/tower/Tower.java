@@ -9,6 +9,11 @@ import model.interfaces.Attackable;
 import util.GameConfig;
 import util.SoundManager;
 
+/**
+ * Tower.java
+ * abstract class ของ tower ทุกประเภท จัดการ cooldown และ range
+ * subclass กำหนด attack behavior และ render เอง
+ */
 public abstract class Tower extends Entity implements Attackable {
 
     private static final int PADDING = 4;

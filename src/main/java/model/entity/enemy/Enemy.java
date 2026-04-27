@@ -9,6 +9,10 @@ import util.GameConfig;
 
 import java.util.List;
 
+/**
+ * Enemy.java
+ * abstract class ของ enemy ทุกประเภท จัดการ movement ตาม path และ slow effect
+ */
 public abstract class Enemy extends Entity implements Damageable {
     protected double speed; // tile per second
     protected int reward; // drop gold when Enemy dies

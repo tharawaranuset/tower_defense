@@ -8,6 +8,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * SoundManager.java
+ * จัดการเสียงทั้งหมดในเกม ใช้ Singleton pattern
+ * AudioClip สำหรับ sfx สั้น และ MediaPlayer สำหรับ bgm
+ */
 public class SoundManager {
 
     private static SoundManager instance;
@@ -17,6 +22,7 @@ public class SoundManager {
     private boolean muted = false;
 
     private SoundManager() {
+        // TODO: change to MediaPlayer
         loadAllClips("/sounds/tower");
         loadClip("game_over", "/sounds/game_over.mp3");
 

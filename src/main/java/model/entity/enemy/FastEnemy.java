@@ -7,6 +7,10 @@ import util.GameConfig;
 
 import java.util.List;
 
+/**
+ * FastEnemy.java
+ * enemy ที่วิ่งเร็วที่สุด hp น้อย ต้องวาง tower ให้ครอบคลุมตลอดเส้นทาง
+ */
 public class FastEnemy extends Enemy {
 
     public FastEnemy(List<TilePoint> path) {

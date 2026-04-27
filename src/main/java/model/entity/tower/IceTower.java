@@ -6,6 +6,10 @@ import model.Projectile;
 import model.entity.enemy.Enemy;
 import util.GameConfig;
 
+/**
+ * IceTower.java
+ * tower ที่ทำให้ enemy ช้าลงชั่วคราว damage ต่ำแต่ช่วย tower อื่นได้มาก
+ */
 public class IceTower extends Tower {
 
     private double slowMultiplier;

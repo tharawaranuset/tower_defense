@@ -6,6 +6,10 @@ import model.Projectile;
 import model.entity.enemy.Enemy;
 import util.GameConfig;
 
+/**
+ * ArrowTower.java
+ * tower ราคาถูก ยิง single target damage ปานกลาง เหมาะวางจำนวนมากตั้งแต่ต้นเกม
+ */
 public class ArrowTower extends Tower {
 
     public ArrowTower(int tileX, int tileY) {

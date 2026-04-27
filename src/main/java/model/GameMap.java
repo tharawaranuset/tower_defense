@@ -15,6 +15,11 @@ import util.GameConfig;
 
 import static util.GameConfig.TILE_SIZE;
 
+/**
+ * GameMap.java
+ * เก็บ state ของ map ทั้งหมด ได้แก่ grid, path, tower และ enemy
+ * ใช้ synchronizedList รองรับการเข้าถึงจากหลาย thread
+ */
 public class GameMap implements Renderable {
 
     // grass

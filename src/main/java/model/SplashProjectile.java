@@ -5,6 +5,10 @@ import model.entity.enemy.Enemy;
 
 import java.util.List;
 
+/**
+ * SplashProjectile.java
+ * กระสุน CannonTower ที่ deal damage กับทุก enemy ในรัศมีเมื่อชน target
+ */
 public class SplashProjectile extends Projectile {
 
     private final int splashRadius;

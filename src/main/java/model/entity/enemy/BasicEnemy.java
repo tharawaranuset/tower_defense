@@ -5,6 +5,10 @@ import model.TilePoint;
 
 import java.util.List;
 
+/**
+ * BasicEnemy.java
+ * enemy พื้นฐาน speed และ hp ปานกลาง เหมาะเป็น enemy หลักในทุก wave
+ */
 public class BasicEnemy extends Enemy {
 
     public BasicEnemy(List<TilePoint> path) {

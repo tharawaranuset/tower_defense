@@ -5,6 +5,10 @@ import javafx.scene.paint.Color;
 import model.entity.enemy.Enemy;
 import model.interfaces.Renderable;
 
+/**
+ * Projectile.java
+ * กระสุนที่ tower ยิงออกไป เคลื่อนที่ตาม target และ deal damage เมื่อชน
+ */
 public class Projectile implements Renderable {
 
     private final Enemy target;

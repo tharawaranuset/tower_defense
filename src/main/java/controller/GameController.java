@@ -9,6 +9,10 @@ import model.entity.tower.TowerFactory;
 
 import java.util.List;
 
+/**
+ * GameController.java
+ * จัดการ logic หลักของเกม เช่น การซื้อ tower การอัพเดต enemy และเช็ค game over
+ */
 public class GameController {
 
     private final GameMap map;

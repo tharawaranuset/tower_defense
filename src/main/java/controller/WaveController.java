@@ -9,6 +9,10 @@ import model.entity.enemy.FastEnemy;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * WaveController.java
+ * จัดการ wave ของเกม ควบคุมการ spawn enemy และเช็คว่า wave จบแล้วหรือยัง
+ */
 public class WaveController {
 
     private static final int BASE_BASIC_COUNT = 5;

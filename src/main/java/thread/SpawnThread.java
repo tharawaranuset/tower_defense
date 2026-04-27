@@ -2,6 +2,11 @@ package thread;
 
 import controller.WaveController;
 
+/**
+ * SpawnThread.java
+ * thread แยกสำหรับ spawn enemy ตาม interval ที่กำหนด
+ * แยก thread เพื่อไม่ให้การ spawn บล็อก game loop หลัก
+ */
 public class SpawnThread extends Thread {
     private static final long DEFAULT_INTERVAL_MS = 2000;
 

@@ -3,6 +3,10 @@ package model.entity;
 import javafx.scene.canvas.GraphicsContext;
 import model.interfaces.Renderable;
 
+/**
+ * Entity.java
+ * abstract class หลักของทุก object ในเกม เก็บ position และ hp ที่ทุก entity ต้องมี
+ */
 public abstract class Entity implements Renderable {
     protected int tileX;
     protected int tileY;

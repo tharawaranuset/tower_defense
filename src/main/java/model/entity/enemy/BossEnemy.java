@@ -7,6 +7,10 @@ import util.GameConfig;
 
 import java.util.List;
 
+/**
+ * BossEnemy.java
+ * enemy ที่แข็งที่สุด มี armor ลด damage ที่รับ hp สูงมาก reward มากที่สุด
+ */
 public class BossEnemy extends Enemy {
 
     private int armor;

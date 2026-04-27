@@ -2,6 +2,10 @@ package model;
 
 import util.GameConfig;
 
+/**
+ * TilePoint.java
+ * แทน coordinate ของ tile บน map โดยใช้ col และ row แทน x และ y
+ */
 public class TilePoint {
 
     private final int col;

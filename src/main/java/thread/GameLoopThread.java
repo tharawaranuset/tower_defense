@@ -3,6 +3,11 @@ package thread;
 import controller.GameController;
 import main.Main;
 
+/**
+ * GameLoopThread.java
+ * thread หลักของเกม วน update และ render ทุก 16ms เพื่อให้ได้ ~60fps
+ * รองรับ pause และ resume เมื่อหน้าต่างไม่ได้ focus
+ */
 public class GameLoopThread extends Thread {
 
     private static final long TARGET_FPS_MS = 16;
