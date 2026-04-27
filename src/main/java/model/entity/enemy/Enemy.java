@@ -6,6 +6,7 @@ import model.TilePoint;
 import model.entity.Entity;
 import model.interfaces.Damageable;
 import util.GameConfig;
+import util.SpriteSheet;
 
 import java.util.List;
 
@@ -26,10 +27,13 @@ public abstract class Enemy extends Entity implements Damageable {
     // pixel position to draw
     protected double pixelX;
     protected double pixelY;
+    protected double sizeRender = GameConfig.TILE_SIZE / 2.0 - 4;
 
     // slow effect from IceTower
     protected double slowMultiplier = 1.0;
     protected long slowUntil = 0;
+
+    private SpriteSheet spriteSheet;
 
     public Enemy(int startCol, int startRow, int hp, double speed, int reward, List<TilePoint> path) {
         super(startCol, startRow, hp);
@@ -39,6 +43,8 @@ public abstract class Enemy extends Entity implements Damageable {
         // start at middle pixel of start tile
         this.pixelX = (startCol * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
         this.pixelY = (startRow * GameConfig.TILE_SIZE) + (GameConfig.TILE_SIZE / 2.0);
+
+        setSpriteSheet(new SpriteSheet("/images/enemy/" + this.getClass().getSimpleName() + ".png", 4));
     }
 
     @Override
@@ -96,21 +102,23 @@ public abstract class Enemy extends Entity implements Damageable {
 
     @Override
     public void render(GraphicsContext gc) {
-        double r = GameConfig.TILE_SIZE / 2.0 - 4;
-
         // enemy body
-        gc.setFill(getBodyColor());
-        gc.fillOval(pixelX - r, pixelY - r, r * 2, r * 2);
+        if (spriteSheet != null) {
+            spriteSheet.draw(gc, pixelX, pixelY, sizeRender * 2.0);
+        } else {
+            gc.setFill(getBodyColor());
+            gc.fillOval(pixelX - sizeRender, pixelY - sizeRender, sizeRender * 2, sizeRender * 2);
+        }
 
         // slow indicator effect
-        if (slowMultiplier < 1.0) {
+        if (isSlowed()) {
             gc.setStroke(Color.CYAN);
             gc.setLineWidth(2);
-            gc.strokeOval(pixelX - r, pixelY - r, r * 2, r * 2);
+            gc.strokeOval(pixelX - sizeRender, pixelY - sizeRender, sizeRender * 2, sizeRender * 2);
         }
 
         // hp bar above
-        drawHpBar(gc, r);
+        drawHpBar(gc, sizeRender);
     }
 
     protected void drawHpBar(GraphicsContext gc, double r) {
@@ -171,6 +179,14 @@ public abstract class Enemy extends Entity implements Damageable {
 
     public long getSlowUntil() {
         return slowUntil;
+    }
+
+    public void setSpriteSheet(SpriteSheet sheet) {
+        this.spriteSheet = sheet;
+    }
+
+    public SpriteSheet getSpriteSheet() {
+        return spriteSheet;
     }
 
 }

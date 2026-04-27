@@ -25,6 +25,7 @@ public class BossEnemy extends Enemy {
                 path
         );
         setArmor(10);
+        getSpriteSheet().setFrameDelayMs(200);
     }
 
     public int getArmor() {
@@ -49,21 +50,16 @@ public class BossEnemy extends Enemy {
     // bigger than others
     @Override
     public void render(GraphicsContext gc) {
-        double r = GameConfig.TILE_SIZE / 2.0;
-        gc.setFill(getBodyColor());
-        gc.fillOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
-
         // circle around boss
         gc.setStroke(Color.GOLD);
         gc.setLineWidth(2);
-        gc.strokeOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
+        gc.strokeOval(
+                getPixelX() - sizeRender,
+                getPixelY() - sizeRender,
+                sizeRender * 2,
+                sizeRender * 2
+        );
 
-        if (isSlowed()) {
-            gc.setStroke(Color.CYAN);
-            gc.setLineWidth(2);
-            gc.strokeOval(getPixelX() - r - 3, getPixelY() - r - 3, r * 2 + 6, r * 2 + 6);
-        }
-
-        drawHpBar(gc, r);
+        super.render(gc);
     }
 }

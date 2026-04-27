@@ -1,9 +1,7 @@
 package model.entity.enemy;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.TilePoint;
-import util.GameConfig;
 
 import java.util.List;
 
@@ -22,6 +20,8 @@ public class FastEnemy extends Enemy {
                 15,
                 path
         );
+        this.sizeRender -= 4;
+        getSpriteSheet().setFrameDelayMs(80);
     }
 
     @Override
@@ -29,19 +29,4 @@ public class FastEnemy extends Enemy {
         return Color.YELLOW;
     }
 
-    // less than others
-    @Override
-    public void render(GraphicsContext gc) {
-        double r = GameConfig.TILE_SIZE / 2.0 - 8;
-        gc.setFill(getBodyColor());
-        gc.fillOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
-
-        if (isSlowed()) {
-            gc.setStroke(Color.CYAN);
-            gc.setLineWidth(2);
-            gc.strokeOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
-        }
-
-        drawHpBar(gc, r);
-    }
 }
