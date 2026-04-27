@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity implements Damageable {
 
     // list of tile coordinates which enemy can walk
     protected List<TilePoint> path;
-    protected int pathIdx = 0;
+    protected int pathIdx = 1;
 
     // pixel position to draw
     protected double pixelX;
@@ -167,6 +167,10 @@ public abstract class Enemy extends Entity implements Damageable {
 
     public int getPathIdx() {
         return pathIdx;
+    }
+
+    public void setPathIdx(int pathIdx) {
+        this.pathIdx = pathIdx;
     }
 
     public double getSlowMultiplier() {

@@ -3,7 +3,6 @@ package model.entity.enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.TilePoint;
-import util.GameConfig;
 
 import java.util.List;
 
