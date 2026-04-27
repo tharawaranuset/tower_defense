@@ -23,6 +23,7 @@ class IceTowerTest {
     void setup() {
         List<TilePoint> path = List.of(new TilePoint(5, 5));
         iceTower = new IceTower(3, 3);
+        arrowTower = new ArrowTower(3, 3);
         enemy = new BasicEnemy(path);
     }
 
