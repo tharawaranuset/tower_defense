@@ -1,7 +1,7 @@
 package model.entity;
 
 import javafx.scene.canvas.GraphicsContext;
-import model.interfaces.Renderable;
+import interfaces.Renderable;
 
 /**
  * Entity.java

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 import model.entity.enemy.Enemy;
 import model.entity.tower.Tower;
-import model.interfaces.Renderable;
+import interfaces.Renderable;
 
 import java.util.ArrayList;
 import java.util.Collections;

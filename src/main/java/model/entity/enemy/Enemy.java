@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.TilePoint;
 import model.entity.Entity;
-import model.interfaces.Damageable;
+import interfaces.Damageable;
 import util.GameConfig;
 import util.SpriteSheet;
 

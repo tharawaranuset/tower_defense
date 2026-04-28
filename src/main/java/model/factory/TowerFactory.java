@@ -1,4 +1,4 @@
-package factory;
+package model.factory;
 
 import model.entity.tower.ArrowTower;
 import model.entity.tower.CannonTower;

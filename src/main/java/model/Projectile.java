@@ -3,7 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.entity.enemy.Enemy;
-import model.interfaces.Renderable;
+import interfaces.Renderable;
 
 /**
  * Projectile.java

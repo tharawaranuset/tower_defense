@@ -1,4 +1,4 @@
-package model.interfaces;
+package interfaces;
 
 import model.Projectile;
 import model.entity.enemy.Enemy;

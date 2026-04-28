@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import model.Projectile;
 import model.entity.Entity;
 import model.entity.enemy.Enemy;
-import model.interfaces.Attackable;
+import interfaces.Attackable;
 import util.GameConfig;
 import util.SoundManager;
 
