@@ -5,7 +5,7 @@ import model.Projectile;
 import model.entity.enemy.Enemy;
 import model.entity.tower.CannonTower;
 import model.entity.tower.Tower;
-import model.entity.tower.TowerFactory;
+import factory.TowerFactory;
 
 import java.util.List;
 

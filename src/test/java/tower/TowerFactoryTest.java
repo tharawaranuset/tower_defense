@@ -1,5 +1,6 @@
 package tower;
 
+import factory.TowerFactory;
 import model.entity.tower.*;
 import org.junit.jupiter.api.Test;
 

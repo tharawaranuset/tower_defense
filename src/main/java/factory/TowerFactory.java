@@ -1,4 +1,9 @@
-package model.entity.tower;
+package factory;
+
+import model.entity.tower.ArrowTower;
+import model.entity.tower.CannonTower;
+import model.entity.tower.IceTower;
+import model.entity.tower.Tower;
 
 /**
  * TowerFactory.java
