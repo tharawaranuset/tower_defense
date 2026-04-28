@@ -22,39 +22,13 @@ public class SoundManager {
     private boolean muted = false;
 
     private SoundManager() {
-        // TODO: change to MediaPlayer
-        loadAllClips("/sounds/tower");
+        loadClip("ArrowTower", "/sounds/tower/ArrowTower.mp3");
+        loadClip("CannonTower", "/sounds/tower/CannonTower.mp3");
+        loadClip("IceTower", "/sounds/tower/IceTower.mp3");
+
         loadClip("game_over", "/sounds/game_over.mp3");
 
         loadTrack("bgm", "/sounds/bgm.mp3");
-    }
-
-    private void loadAllClips(String folderPath) {
-        try {
-            var url = getClass().getResource(folderPath);
-
-            if (url == null) {
-                System.out.println("Folder not found: " + folderPath);
-                return;
-            }
-
-            File folder = new File(url.toURI());
-
-            File[] files = folder.listFiles();
-            if (files == null) return;
-
-            for (File file : files) {
-                String name = file.getName();
-
-                if (name.endsWith(".mp3")) {
-                    String key = name.substring(0, name.lastIndexOf('.'));
-                    loadClip(key, folderPath + "/" + name);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static SoundManager getInstance() {
