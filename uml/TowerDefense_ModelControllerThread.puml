@@ -1,0 +1,197 @@
+@startuml TowerDefense_ModelControllerThread
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #EBF3FB
+    BorderColor #2E75B6
+    ArrowColor #1F4E79
+}
+
+' ==================== Model ====================
+
+class model.TilePoint {
+    - col: int
+    - row: int
+    + TilePoint(col: int, row: int)
+    + getCol(): int
+    + getRow(): int
+}
+
+class model.Projectile {
+    - x: double
+    - y: double
+    - target: Enemy
+    - damage: int
+    - speed: double
+    - color: Color
+    - radius: double
+    - hit: boolean
+    + Projectile(x: double, y: double, target: Enemy, damage: int, speed: double, color: Color, radius: double)
+    + update(deltaTime: double): void
+    + render(gc: GraphicsContext): void
+    + isHit(): boolean
+    + getX(): double
+    + getY(): double
+    + getDamage(): int
+}
+
+class model.SplashProjectile {
+    - splashRadius: int
+    - allEnemies: List<Enemy>
+    + SplashProjectile(x: double, y: double, target: Enemy, damage: int, splashRadius: int, allEnemies: List<Enemy>)
+    + update(deltaTime: double): void
+}
+
+class model.GameMap {
+    + GRASS: int {static}
+    + PATH: int {static}
+    + TOWER: int {static}
+    - grid: int[][]
+    - path: List<TilePoint>
+    - towers: List<Tower>
+    - enemies: List<Enemy>
+    - projectiles: List<Projectile>
+    + GameMap()
+    - buildMap(): void
+    + canPlace(col: int, row: int): boolean
+    + addTower(t: Tower): void
+    + addEnemy(e: Enemy): void
+    + removeDead(): void
+    + removeHitProjectiles(): void
+    + getEnemiesInRange(t: Tower): List<Enemy>
+    + getGrid(): int[][]
+    + getPath(): List<TilePoint>
+    + getTowers(): List<Tower>
+    + getEnemies(): List<Enemy>
+    + getProjectiles(): List<Projectile>
+    + addProjectile(p: Projectile): void
+    + render(gc: GraphicsContext): void
+}
+
+class model.factory.TowerFactory {
+    + create(type: String, col: int, row: int): Tower {static}
+}
+
+' ==================== Controllers ====================
+
+class controller.WaveController {
+    - BASE_BASIC_COUNT: int {static}
+    - BASIC_PER_WAVE: int {static}
+    - FAST_START_WAVE: int {static}
+    - FAST_RATIO: int {static}
+    - BOSS_START_WAVE: int {static}
+    - BOSS_RATIO: int {static}
+    - currentWave: int
+    - spawnQueue: Queue<Enemy>
+    - map: GameMap
+    - isWaveInProgress: boolean
+    + WaveController(map: GameMap)
+    + nextWave(): void
+    - buildQueue(wave: int): void
+    + spawnNext(): void
+    + isWaveComplete(): boolean
+    + isWaveInProgress(): boolean
+    + isQueueEmpty(): boolean
+    + getCurrentWave(): int
+    + setCurrentWave(wave: int): void
+    + getQueueSize(): int
+}
+
+class controller.GameController {
+    - map: GameMap
+    - waveController: WaveController
+    - gold: int
+    - lives: int
+    - gameOver: boolean
+    - lastUpdateTime: long
+    + GameController()
+    + update(): void
+    - moveEnemies(deltaTime: double): void
+    - towerAttack(): void
+    - updateProjectiles(deltaTime: double): void
+    - collectGold(): void
+    - checkLives(): void
+    - checkGameOver(): void
+    + buyTower(type: String, col: int, row: int): boolean
+    + resetUpdateTime(): void
+    + getGold(): int
+    + setGold(gold: int): void
+    + getLives(): int
+    + setLives(lives: int): void
+    + isGameOver(): boolean
+    + getMap(): GameMap
+    + getWaveController(): WaveController
+}
+
+' ==================== Threads ====================
+
+class thread.GameLoopThread {
+    - TARGET_FPS_MS: long {static}
+    - controller: GameController
+    - screen: Main
+    - running: boolean
+    - paused: boolean
+    + GameLoopThread(controller: GameController, screen: Main)
+    + run(): void
+    + stopLoop(): void
+    + pauseLoop(): void
+    + resumeLoop(): void
+}
+
+class thread.SpawnThread {
+    - DEFAULT_INTERVAL_MS: long {static}
+    - waveController: WaveController
+    - running: boolean
+    - intervalMs: long
+    + SpawnThread(waveController: WaveController)
+    + setIntervalMs(ms: long): void
+    + run(): void
+    + stopSpawn(): void
+}
+
+' ==================== Inheritance ====================
+
+model.Projectile <|-- model.SplashProjectile
+interfaces.Renderable <|.. model.Projectile
+interfaces.Renderable <|.. model.GameMap
+java.lang.Thread <|-- thread.GameLoopThread
+java.lang.Thread <|-- thread.SpawnThread
+
+' ==================== Composition ====================
+' GameMap owns Tower, Enemy, Projectile - they cannot exist without GameMap
+
+model.GameMap *-- "0..*" model.entity.tower.Tower : contains
+model.GameMap *-- "0..*" model.entity.enemy.Enemy : contains
+model.GameMap *-- "0..*" model.Projectile : contains
+model.GameMap *-- "1..*" model.TilePoint : path
+
+' ==================== Association ====================
+' GameController has a reference to GameMap and WaveController
+
+controller.GameController "1" --> "1" model.GameMap : manages
+controller.GameController "1" --> "1" controller.WaveController : manages
+
+' WaveController has reference to GameMap to add enemies
+controller.WaveController "1" --> "1" model.GameMap : spawns into
+
+' Threads hold references to controller/wavecontroller
+thread.GameLoopThread "1" --> "1" controller.GameController : updates
+thread.SpawnThread "1" --> "1" controller.WaveController : triggers
+
+' SplashProjectile holds reference to all enemies (aggregation - enemies exist independently)
+model.SplashProjectile "1" o-- "0..*" model.entity.enemy.Enemy : splash targets
+
+' Projectile tracks a single enemy target (association)
+model.Projectile "1" --> "1" model.entity.enemy.Enemy : targets
+
+' ==================== Dependency ====================
+' TowerFactory creates Tower subclasses (dependency - no long-term reference)
+
+model.factory.TowerFactory ..> model.entity.tower.Tower : creates
+
+' WaveController creates Enemy instances (dependency)
+controller.WaveController ..> model.entity.enemy.Enemy : creates
+
+' GameMap uses TilePoint for path (already shown as composition above)
+
+@enduml

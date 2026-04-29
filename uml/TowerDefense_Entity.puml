@@ -1,0 +1,164 @@
+@startuml TowerDefense_Entity
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #EBF3FB
+    BorderColor #2E75B6
+    ArrowColor #1F4E79
+}
+
+' ==================== Interfaces ====================
+
+interface interfaces.Renderable {
+    + render(gc: GraphicsContext): void
+}
+
+interface interfaces.Attackable {
+    + attack(target: Enemy): Projectile
+    + getRange(): int
+    + getDamage(): int
+}
+
+interface interfaces.Damageable {
+    + takeDamage(dmg: int): void
+    + isDead(): boolean
+}
+
+' ==================== Abstract Entity ====================
+
+abstract class model.entity.Entity {
+    # tileX: int
+    # tileY: int
+    # hp: int
+    # maxHp: int
+    + Entity(tileX: int, tileY: int, hp: int)
+    + getTileX(): int
+    + getTileY(): int
+    + getHp(): int
+    + getMaxHp(): int
+    + render(gc: GraphicsContext): void {abstract}
+}
+
+' ==================== Tower ====================
+
+abstract class model.entity.tower.Tower {
+    - PADDING: int {static}
+    # range: int
+    # damage: int
+    # cost: int
+    # fireRateMs: long
+    # lastFiredAt: long
+    + Tower(tileX: int, tileY: int, hp: int, range: int, damage: int, cost: int, fireRateMs: long)
+    + isNotReady(): boolean
+    # resetCooldown(): void
+    + render(gc: GraphicsContext): void
+    + renderRange(gc: GraphicsContext): void
+    + attack(target: Enemy): Projectile {abstract}
+    + getRange(): int
+    + getDamage(): int
+    + getCost(): int
+}
+
+class model.entity.tower.ArrowTower {
+    + ArrowTower(tileX: int, tileY: int)
+    + attack(target: Enemy): Projectile
+    + render(gc: GraphicsContext): void
+}
+
+class model.entity.tower.CannonTower {
+    - splashRadius: int
+    - enemiesRef: List<Enemy>
+    + CannonTower(tileX: int, tileY: int)
+    + setSplashRadius(r: int): void
+    + setEnemiesRef(enemies: List<Enemy>): void
+    + attack(target: Enemy): Projectile
+    + render(gc: GraphicsContext): void
+}
+
+class model.entity.tower.IceTower {
+    - slowMultiplier: double
+    - slowDurationMs: long
+    + IceTower(tileX: int, tileY: int)
+    + setSlowMultiplier(m: double): void
+    + setSlowDurationMs(ms: long): void
+    + attack(target: Enemy): Projectile
+    + render(gc: GraphicsContext): void
+}
+
+' ==================== Enemy ====================
+
+abstract class model.entity.enemy.Enemy {
+    # speed: double
+    # reward: int
+    # dead: boolean
+    # hasReachedEnd: boolean
+    # path: List<TilePoint>
+    # pathIdx: int
+    # pixelX: double
+    # pixelY: double
+    # slowMultiplier: double
+    # slowUntil: long
+    - spriteSheet: SpriteSheet
+    + Enemy(startCol: int, startRow: int, hp: int, speed: double, reward: int, path: List<TilePoint>)
+    + move(deltaTime: double): void
+    + takeDamage(dmg: int): void
+    + isDead(): boolean
+    + hasReachedEnd(): boolean
+    + applySlow(multiplier: double, durationMs: long): void
+    + isSlowed(): boolean
+    + render(gc: GraphicsContext): void
+    # drawHpBar(gc: GraphicsContext, r: double): void
+    # getBodyColor(): Color {abstract}
+    + getPixelX(): double
+    + getPixelY(): double
+    + getReward(): int
+    + setSpriteSheet(sheet: SpriteSheet): void
+    + getSpriteSheet(): SpriteSheet
+}
+
+class model.entity.enemy.BasicEnemy {
+    + BasicEnemy(path: List<TilePoint>)
+    # getBodyColor(): Color
+}
+
+class model.entity.enemy.FastEnemy {
+    + FastEnemy(path: List<TilePoint>)
+    # getBodyColor(): Color
+}
+
+class model.entity.enemy.BossEnemy {
+    - armor: int
+    + BossEnemy(path: List<TilePoint>)
+    + getArmor(): int
+    + setArmor(armor: int): void
+    + takeDamage(dmg: int): void
+    # getBodyColor(): Color
+    + render(gc: GraphicsContext): void
+}
+
+' ==================== Inheritance ====================
+
+model.entity.Entity ..|> interfaces.Renderable
+model.entity.Entity <|-- model.entity.tower.Tower
+model.entity.Entity <|-- model.entity.enemy.Enemy
+model.entity.tower.Tower ..|> interfaces.Attackable
+model.entity.enemy.Enemy ..|> interfaces.Damageable
+model.entity.tower.Tower <|-- model.entity.tower.ArrowTower
+model.entity.tower.Tower <|-- model.entity.tower.CannonTower
+model.entity.tower.Tower <|-- model.entity.tower.IceTower
+model.entity.enemy.Enemy <|-- model.entity.enemy.BasicEnemy
+model.entity.enemy.Enemy <|-- model.entity.enemy.FastEnemy
+model.entity.enemy.Enemy <|-- model.entity.enemy.BossEnemy
+
+' ==================== Association ====================
+
+' Enemy uses SpriteSheet for animation (association)
+model.entity.enemy.Enemy --> util.SpriteSheet : uses
+
+' Tower creates Projectile via attack() (dependency)
+model.entity.tower.Tower ..> model.Projectile : creates
+
+' CannonTower references Enemy list for splash (dependency)
+model.entity.tower.CannonTower ..> model.entity.enemy.Enemy : splash ref
+
+@enduml

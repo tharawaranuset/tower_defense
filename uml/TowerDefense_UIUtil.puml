@@ -1,0 +1,127 @@
+@startuml TowerDefense_UIUtil
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #EBF3FB
+    BorderColor #2E75B6
+    ArrowColor #1F4E79
+}
+
+' ==================== UI ====================
+
+class main.Main {
+    + TILE_SIZE: int {static}
+    + COLS: int {static}
+    + ROWS: int {static}
+    - canvas: Canvas
+    - gc: GraphicsContext
+    - goldLabel: Label
+    - livesLabel: Label
+    - waveLabel: Label
+    - messageLabel: Label
+    - towerToggle: ToggleGroup
+    - controller: GameController
+    - loopThread: GameLoopThread
+    - spawnThread: SpawnThread
+    - btnNextWave: Button
+    - btnMute: Button
+    - gameOverSoundPlayed: boolean
+    + main(args: String[]): void {static}
+    + start(stage: Stage): void
+    - buildHUD(): HBox
+    - buildCanvas(): Canvas
+    - buildShop(): VBox
+    - buildNextWaveBtn(): Button
+    - buildMuteBtn(): Button
+    - buildTowerBtn(label: String, type: String): RadioButton
+    - buildMessageBar(): HBox
+    + render(): void
+    - drawMap(): void
+    - drawTowers(): void
+    - drawProjectiles(): void
+    - drawEnemies(): void
+    - drawAllRanges(): void
+    - updateHUD(): void
+    - drawGameOver(): void
+    - handleMapClick(e: MouseEvent): void
+    - startThreads(): void
+    - shutdown(): void
+    + showMessage(msg: String): void
+}
+
+' ==================== Util ====================
+
+class util.GameConfig {
+    + TILE_SIZE: int {static}
+    + COLS: int {static}
+    + ROWS: int {static}
+    - GameConfig()
+}
+
+class util.SoundManager {
+    - instance: SoundManager {static}
+    - tracks: Map<String, MediaPlayer>
+    - shootPlayers: List<MediaPlayer>
+    - isBattleMode: boolean
+    - muted: boolean
+    - SoundManager()
+    + getInstance(): SoundManager {static}
+    - loadTrack(key: String, path: String): void
+    - loadShootPool(path: String): void
+    - setLoop(key: String): void
+    + play(key: String): void
+    + playBgm(): void
+    + stopBgm(): void
+    + switchToBattle(): void
+    + switchToMenu(): void
+    + setMuted(muted: boolean): void
+    + isMuted(): boolean
+}
+
+class util.SpriteSheet {
+    - DEFAULT_FRAME_DELAY_MS: long {static}
+    - image: Image
+    - totalFrames: int
+    - frameWidth: int
+    - frameHeight: int
+    - currentFrame: int
+    - lastFrameTime: long
+    - frameDelayMs: long
+    + SpriteSheet(path: String, totalFrames: int)
+    + draw(gc: GraphicsContext, destX: double, destY: double, size: double): void
+    - updateFrame(): void
+    + setFrameDelayMs(ms: long): void
+}
+
+' ==================== Inheritance ====================
+
+javafx.application.Application <|-- main.Main
+
+' ==================== Association ====================
+' Main holds long-term references to controller and threads
+
+main.Main "1" --> "1" controller.GameController : controls
+main.Main "1" --> "1" thread.GameLoopThread : manages
+main.Main "1" --> "1" thread.SpawnThread : manages
+
+' Main uses SoundManager (association via getInstance)
+main.Main --> util.SoundManager : uses
+
+' ==================== Dependency ====================
+' Main depends on GameConfig for TILE_SIZE, COLS, ROWS (read static fields)
+
+main.Main ..> util.GameConfig : reads constants
+
+' SpriteSheet is used by Enemy classes (shown in Entity diagram)
+' SoundManager is singleton - no ownership
+
+' SoundManager uses MediaPlayer internally (dependency on JavaFX)
+util.SoundManager ..> javafx.scene.media.MediaPlayer : uses
+
+' GameConfig is read by Tower, Enemy, GameMap, SpriteSheet (dependency)
+model.entity.tower.Tower ..> util.GameConfig : reads constants
+model.entity.enemy.Enemy ..> util.GameConfig : reads constants
+model.GameMap ..> util.GameConfig : reads constants
+util.SpriteSheet ..> util.GameConfig : reads constants
+
+@enduml
