@@ -6,7 +6,7 @@ A 2D Tower Defense game built with Java, JavaFX, and multithreading as a univers
 
 ## Screenshots
 
-> _![wave_running.png](docs/sources/images/wave_running.png)_
+> _![wave_running.png](resources/images/wave_running.png)_
 
 ---
 
