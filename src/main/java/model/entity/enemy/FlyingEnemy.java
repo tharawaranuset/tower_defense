@@ -9,7 +9,7 @@ import util.SpriteSheet;
 import java.util.List;
 
 
-public class FlyingEnemy extends Enemy{
+public class FlyingEnemy extends Enemy {
     private static final double HOVER_OFFSET = 12.0;
 
     public FlyingEnemy(List<TilePoint> path) {
@@ -32,33 +32,18 @@ public class FlyingEnemy extends Enemy{
 
     @Override
     public void render(GraphicsContext gc) {
-        double size = GameConfig.TILE_SIZE;
-        double r    = size / 2.0 - 4;
-
         // วาด shadow บนพื้น
         gc.setFill(Color.color(0, 0, 0, 0.25));
-        gc.fillOval(getPixelX() - r * 0.8, getPixelY() - r * 0.4, r * 1.6, r * 0.8);
+        gc.fillOval(getPixelX() - sizeRender * 0.8, getPixelY() - sizeRender * 0.4, sizeRender * 1.6, sizeRender * 0.8);
 
         // เลื่อนขึ้นก่อนวาดตัว
         gc.save();
         gc.translate(0, -HOVER_OFFSET);
 
-        if (getSpriteSheet() != null) {
-            getSpriteSheet().draw(gc, getPixelX(), getPixelY(), size);
-        } else {
-            gc.setFill(getBodyColor());
-            gc.fillOval(getPixelX() - r, getPixelY() - r, r * 2, r * 2);
-
-            // วาดปีก
-            gc.setFill(Color.color(0.5, 0.8, 1.0, 0.7));
-            gc.fillOval(getPixelX() - r * 2, getPixelY() - r * 0.5, r * 1.2, r * 0.8);
-            gc.fillOval(getPixelX() + r * 0.8, getPixelY() - r * 0.5, r * 1.2, r * 0.8);
-        }
-
+        super.render(gc);
         gc.restore();
 
-        // hp bar วาดเหนือตัวที่ลอยขึ้นด้วย
-        drawHpBar(gc, r);
+
     }
 }
 
