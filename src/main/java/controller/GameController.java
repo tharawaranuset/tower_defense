@@ -73,7 +73,7 @@ public class GameController {
             List<Enemy> validTargets = inRange.stream().filter(e -> t.canHitFlying() || !(e instanceof FlyingEnemy)).toList();
             if (validTargets.isEmpty()) continue;
 
-            Projectile p = t.attack(inRange.getFirst());
+            Projectile p = t.attack(validTargets.getFirst());
             if (p != null) map.addProjectile(p);
         }
     }
