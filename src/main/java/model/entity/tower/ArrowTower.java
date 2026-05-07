@@ -22,6 +22,7 @@ public class ArrowTower extends Tower {
                 50,
                 800
         );
+        setCanHitFlying(true);
     }
 
     @Override

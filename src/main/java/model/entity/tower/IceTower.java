@@ -27,6 +27,7 @@ public class IceTower extends Tower {
         );
         setSlowMultiplier(0.4);
         setSlowDurationMs(2000);
+        setCanHitFlying(false);
     }
 
     public void setSlowMultiplier(double slowMultiplier) {

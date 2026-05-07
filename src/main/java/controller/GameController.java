@@ -3,6 +3,7 @@ package controller;
 import model.GameMap;
 import model.Projectile;
 import model.entity.enemy.Enemy;
+import model.entity.enemy.FlyingEnemy;
 import model.entity.tower.CannonTower;
 import model.entity.tower.Tower;
 import model.factory.TowerFactory;
@@ -68,6 +69,9 @@ public class GameController {
             if (t instanceof CannonTower ct) {
                 ct.setEnemiesRef(map.getEnemies());
             }
+
+            List<Enemy> validTargets = inRange.stream().filter(e -> t.canHitFlying() || !(e instanceof FlyingEnemy)).toList();
+            if (validTargets.isEmpty()) continue;
 
             Projectile p = t.attack(inRange.getFirst());
             if (p != null) map.addProjectile(p);

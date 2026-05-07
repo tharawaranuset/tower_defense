@@ -1,10 +1,7 @@
 package controller;
 
 import model.GameMap;
-import model.entity.enemy.BasicEnemy;
-import model.entity.enemy.BossEnemy;
-import model.entity.enemy.Enemy;
-import model.entity.enemy.FastEnemy;
+import model.entity.enemy.*;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,6 +18,8 @@ public class WaveController {
     private static final int FAST_RATIO = 2;
     private static final int BOSS_START_WAVE = 3;
     private static final int BOSS_RATIO = 3;
+    private static final int FLY_START_WAVE = 2;
+    private static final int FLY_RATIO = 2;
 
     private int currentWave = 0;
     private final Queue<Enemy> spawnQueue;
@@ -45,7 +44,8 @@ public class WaveController {
 
         int basicCount = BASE_BASIC_COUNT + wave * BASIC_PER_WAVE;
         int fastCount = wave >= FAST_START_WAVE ? wave * FAST_RATIO : 0;
-        int bossCount = wave >= BOSS_START_WAVE ? wave / BOSS_RATIO : 0;
+        int bossCount = wave >= BOSS_START_WAVE ? wave * BOSS_RATIO : 0;
+        int flyingCount = wave >= FLY_START_WAVE ? wave * FLY_RATIO : 0;
 
         for (int i = 0; i < basicCount; i++) {
             spawnQueue.add(new BasicEnemy(map.getPath()));
@@ -53,9 +53,13 @@ public class WaveController {
         for (int i = 0; i < fastCount; i++) {
             spawnQueue.add(new FastEnemy(map.getPath()));
         }
+        for (int i = 0; i < flyingCount; i++) {
+            spawnQueue.add(new FlyingEnemy(map.getPath()));
+        }
         for (int i = 0; i < bossCount; i++) {
             spawnQueue.add(new BossEnemy(map.getPath()));
         }
+
     }
 
     // SpawnThread called this method every 2 seconds

@@ -17,6 +17,7 @@ import util.SoundManager;
 public abstract class Tower extends Entity implements Attackable {
 
     private static final int PADDING = 4;
+    private boolean canHitFlying = true;
 
     protected int range;
     protected int damage;
@@ -96,5 +97,10 @@ public abstract class Tower extends Entity implements Attackable {
     public int getCost() {
         return cost;
     }
+
+    public boolean canHitFlying() { return canHitFlying; }
+    public void setCanHitFlying(boolean value)  { canHitFlying = value; }
+
+
 
 }

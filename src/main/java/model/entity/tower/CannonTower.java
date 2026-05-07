@@ -31,6 +31,7 @@ public class CannonTower extends Tower {
                 1500
         );
         setSplashRadius(60);
+        setCanHitFlying(false);
     }
 
     public void setSplashRadius(int splashRadius) {
