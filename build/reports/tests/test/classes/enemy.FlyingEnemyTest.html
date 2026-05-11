@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - GameMapTest</title>
+<title>Test results - FlyingEnemyTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>GameMapTest</h1>
+<h1>FlyingEnemyTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/system.html">system</a> &gt; GameMapTest</div>
+<a href="../packages/enemy.html">enemy</a> &gt; FlyingEnemyTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">10</div>
+<div class="counter">7</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.013s</div>
+<div class="counter">0.023s</div>
 <p>duration</p>
 </div>
 </td>
@@ -75,53 +75,38 @@
 </tr>
 </thead>
 <tr>
-<td class="success">testAddEnemy()</td>
-<td class="success">0.002s</td>
+<td class="success">applySlow_worksOnFlyingEnemy()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testAddTower()</td>
-<td class="success">0.001s</td>
+<td class="success">hp_lowerThanBasicEnemy()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testCanPlaceOnGrass()</td>
-<td class="success">0.001s</td>
+<td class="success">isDead_initiallyFalse()</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testCanPlaceOnOutOfBoundary()</td>
-<td class="success">0.001s</td>
+<td class="success">isDead_trueWhenHpZero()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testCanPlaceOnTower()</td>
-<td class="success">0.001s</td>
+<td class="success">move_changesPixelPosition()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testCanPlaceOnePathTiles()</td>
-<td class="success">0.001s</td>
+<td class="success">reward_higherThanBasicEnemy()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testGetEnemiesInRange()</td>
-<td class="success">0.002s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testGetEnemiesOutOfRange()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testGetPath()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testRemoveDead()</td>
-<td class="success">0.002s</td>
+<td class="success">takeDamage_reducesHp()</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 </table>

@@ -59,4 +59,10 @@ class ArrowTowerTest {
         p.update(0.001);
         assertFalse(p.isHit());
     }
+
+    @Test
+    void arrowTower_canHitFlying_isTrue() {
+        ArrowTower arrow = new ArrowTower(0, 0);
+        assertTrue(arrow.canHitFlying());
+    }
 }

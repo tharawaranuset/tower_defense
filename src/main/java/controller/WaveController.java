@@ -17,7 +17,7 @@ public class WaveController {
     private static final int FAST_START_WAVE = 2;
     private static final int FAST_RATIO = 2;
     private static final int BOSS_START_WAVE = 3;
-    private static final int BOSS_RATIO = 3;
+    private static final int BOSS_RATIO = 1;
     private static final int FLY_START_WAVE = 2;
     private static final int FLY_RATIO = 2;
 

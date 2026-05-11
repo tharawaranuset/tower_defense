@@ -2,10 +2,7 @@ package system;
 
 import controller.WaveController;
 import model.GameMap;
-import model.entity.enemy.BasicEnemy;
-import model.entity.enemy.BossEnemy;
-import model.entity.enemy.Enemy;
-import model.entity.enemy.FastEnemy;
+import model.entity.enemy.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -158,6 +155,25 @@ class WaveControllerTest {
 
         assertEquals(11, countMap.getOrDefault(BasicEnemy.class, 0));
         assertEquals(6, countMap.getOrDefault(FastEnemy.class, 0));
-        assertEquals(1, countMap.getOrDefault(BossEnemy.class, 0));
+        assertEquals(6, countMap.getOrDefault(FlyingEnemy.class, 0));
+        assertEquals(3, countMap.getOrDefault(BossEnemy.class, 0));
+    }
+
+    @Test
+    void nextWave_wave2HasFlyingEnemies() {
+        wc.setCurrentWave(2);
+        wc.nextWave();
+
+        boolean hasFlyingEnemy = false;
+        while (!wc.isQueueEmpty()) {
+            wc.spawnNext();
+        }
+        for (Enemy e : map.getEnemies()) {
+            if (e instanceof FlyingEnemy) {
+                hasFlyingEnemy = true;
+                break;
+            }
+        }
+        assertTrue(hasFlyingEnemy);
     }
 }

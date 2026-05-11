@@ -2,12 +2,16 @@ package system;
 
 import controller.GameController;
 import model.GameMap;
+import model.TilePoint;
 import model.entity.enemy.BasicEnemy;
 import model.entity.enemy.Enemy;
+import model.entity.enemy.FlyingEnemy;
 import model.entity.tower.ArrowTower;
 import model.entity.tower.Tower;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -117,5 +121,36 @@ class GameControllerTest {
         controller.update();
 
         assertEquals(beforeGold + enemy.getReward(), controller.getGold());
+    }
+
+    @Test
+    void towerAttack_cannonCannotHitFlyingEnemy() {
+        controller.buyTower("cannon", 0, 1);
+
+        FlyingEnemy flying = new FlyingEnemy(
+                List.of(new TilePoint(0, 1), new TilePoint(1, 1))
+        );
+        controller.getMap().addEnemy(flying);
+
+        int hpBefore = flying.getHp();
+        controller.update();
+
+        assertEquals(hpBefore, flying.getHp());
+    }
+
+    @Test
+    void towerAttack_arrowCanHitFlyingEnemy() {
+        controller.buyTower("arrow", 0, 1);
+
+        FlyingEnemy flying = new FlyingEnemy(
+                List.of(new TilePoint(0, 1), new TilePoint(1, 1))
+        );
+        controller.getMap().addEnemy(flying);
+
+        for (int i = 0; i < 10; i++) {
+            controller.update();
+        }
+
+        assertTrue(flying.getHp() < flying.getMaxHp());
     }
 }

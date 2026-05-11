@@ -83,4 +83,9 @@ class CannonTowerTest {
 
         assertTrue(nearbyEnemy.getHp() < hpBefore);
     }
+
+    @Test
+    void canHitFlying_isFalseByDefault() {
+        assertFalse(tower.canHitFlying());
+    }
 }
