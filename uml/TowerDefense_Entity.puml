@@ -126,6 +126,13 @@ class model.entity.enemy.FastEnemy {
     # getBodyColor(): Color
 }
 
+class model.entity.enemy.FlyingEnemy {
+    - {static} double HOVER_OFFSET
+    + FlyingEnemy(path: List<TilePoint>)
+    # getBodyColor(): Color
+    + render(gc: GraphicsContext): void
+}
+
 class model.entity.enemy.BossEnemy {
     - armor: int
     + BossEnemy(path: List<TilePoint>)
@@ -149,6 +156,7 @@ model.entity.tower.Tower <|-- model.entity.tower.IceTower
 model.entity.enemy.Enemy <|-- model.entity.enemy.BasicEnemy
 model.entity.enemy.Enemy <|-- model.entity.enemy.FastEnemy
 model.entity.enemy.Enemy <|-- model.entity.enemy.BossEnemy
+model.entity.enemy.Enemy <|-- model.entity.enemy.FlyingEnemy
 
 ' ==================== Association ====================
 

@@ -1,12 +1,12 @@
 controller
 enemy
-factory
+interfaces
 main
 model
 model.entity
 model.entity.enemy
 model.entity.tower
-model.interfaces
+model.factory
 system
 thread
 tower

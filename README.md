@@ -34,7 +34,7 @@ src/
 ├── model/
 │   ├── entity/
 │   │   ├── tower/  - Tower, ArrowTower, CannonTower, IceTower
-│   │   └── enemy/  - Enemy, BasicEnemy, FastEnemy, BossEnemy
+│   │   └── enemy/  - Enemy, BasicEnemy, FastEnemy, FlyingEnemy, BossEnemy
 │   ├── factory/    - TowerFactory
 │   ├── GameMap.java
 │   ├── Projectile.java
@@ -108,6 +108,7 @@ java --module-path <path-to-javafx-lib> --add-modules ALL-MODULE-PATH -jar <name
 |---|---|---|---|---|
 | Basic | 100 | Normal | 10g | - |
 | Fast | 50 | 2x | 15g | Hard to hit |
+| Fly | 80 | Faster | 20g | Only Arrow can hit |
 | Boss | 500 | Slow | 50g | Armor reduces damage taken |
 
 ---
