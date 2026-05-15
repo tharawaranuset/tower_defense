@@ -4,6 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
+
 group = 'progmeth_2025_2'
 version = '1'
 
